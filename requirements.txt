@@ -1,0 +1,4 @@
+pip~=24.2
+matplotlib
+music21
+pillow
