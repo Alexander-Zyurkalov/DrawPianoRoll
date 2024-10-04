@@ -13,10 +13,12 @@ assert len(bases) == len(qualities)
 
 count = 0
 for i, root in enumerate(bases):
+   if i == len(bases)-1:
+      break
    for j in range(12):
-      n = (i + j) % 12
+      interval_index = (i + j) % 12
       q = qualities[j]
-      n_note = bases[n]
+      n_note = bases[interval_index]
       if root == n_note:
          continue
       count += 1
