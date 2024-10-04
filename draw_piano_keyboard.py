@@ -95,5 +95,5 @@ def get_chord_notes(root, chord_type, base_octave=1, inversion=0):
 
 # Example usage: Draw the chords for the key of A minor, root position
 # highlighted_notes = get_chord_notes('A', 'major', base_octave=1, inversion=2)
-highlighted_notes = ['B1', 'D2']
+highlighted_notes = ['A1', 'B1']
 draw_keyboard(highlighted_notes)
