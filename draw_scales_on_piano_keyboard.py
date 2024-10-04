@@ -125,7 +125,7 @@ def make_colours(root: str, scale_type: str, base_octave: int = 1) -> Dict[str, 
 
    return note_colors
 
-note = 'C'
+note = 'B'
 # highlighted_notes = make_colours(note, 'Ionian', base_octave=1)
 # highlighted_notes = make_colours(note, 'Dorian', base_octave=1)
 # highlighted_notes = make_colours(note, 'Phrygian', base_octave=1)
