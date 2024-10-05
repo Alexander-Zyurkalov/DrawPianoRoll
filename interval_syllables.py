@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 
-octaves = 4  # Set the number of octaves you want to see
-ves = 4  # Set the number of octaves you want to see
+octaves = 2  # Set the number of octaves you want to see
 keys_per_octave = 12
 white_keys_per_octave = 7
 total_white_keys = octaves * white_keys_per_octave
@@ -18,7 +17,7 @@ black_key_positions = {'T': 0, 'N': 1, 'J': 3, 'R': 4, 'P': 5}
 def draw_keyboard(file_name: str, highlighted_notes=None):
    highlighted_notes = highlighted_notes or []
 
-   plt.figure(figsize=(15, 4))
+   plt.figure(figsize=(7, 4))
    plt.xlim(0, total_white_keys)
    plt.ylim(0, 6)
 
@@ -38,6 +37,7 @@ def draw_keyboard(file_name: str, highlighted_notes=None):
 
    plt.axis('off')  # Hide the axes
    plt.savefig('output/intervals/' + file_name)
+   plt.close()
 
 
 
@@ -78,7 +78,7 @@ for i, root in enumerate(bases):
       leftToRight = root + root_suffix + n_note + up_quality
       rightToLeft = n_note + root_suffix + root + do_quality
       img_url = f"piano_{leftToRight}_{rightToLeft}.png"
-      notes = [root+'1', n_note + str((i+j)//12+1)]
+      notes = [root+'0', n_note + str((i+j)//12)]
       draw_keyboard(img_url, notes)
-      print(f"{leftToRight}\tmnemonic\t{rightToLeft}\t{intervalNames[j]}\t{img_url}\t{notes}")
+      print(f"{leftToRight}\tmnemonic\t{rightToLeft}\t{intervalNames[j]}\t{img_url}")
 print("count = ", count)
