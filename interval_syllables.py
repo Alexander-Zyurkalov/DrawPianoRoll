@@ -23,9 +23,9 @@ def draw_keyboard(file_name: str, highlighted_notes=None):
    start_index = calculate_start_index(note_indexes, total_keys)
    start_white_key = round(start_index / keys_per_octave * white_keys_per_octave)
 
-   plt.figure(figsize=(7, 4))
+   plt.figure(figsize=(7, 2))
    plt.xlim(-start_white_key, total_white_keys-start_white_key)
-   plt.ylim(0, 6)
+   plt.ylim(0, 3)
 
    # Draw white keys
    for i in range(-start_white_key, white_keys_per_octave * octaves - start_white_key):
