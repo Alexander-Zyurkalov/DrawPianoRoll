@@ -52,18 +52,22 @@ def draw_piano_roll(file_name: str, note_list: list[str]):
    plt.ylim(0, total_keys)
    plt.xlim(0, 5)
 
+   # Draw the background for the piano roll
    for i in range(total_keys):
       is_sharp = note_names[i % keys_per_octave] in black_keys
       back_colour = 'whitesmoke' if is_sharp else 'white'
       plt.gca().add_patch(plt.Rectangle((0, i), 28, 1,
                                         facecolor=back_colour, edgecolor='whitesmoke'))
 
+   # Draw the notes on the piano roll
    for i, note in enumerate(note_indexes):
       plt.gca().add_patch(plt.Rectangle((start_x, note), 3, 1,
-                                        facecolor='pink', edgecolor='lightcoral'))
-   plt.grid(True, color='whitesmoke', linestyle='-', linewidth=1.5)
+                                        facecolor='pink', edgecolor='whitesmoke'))
+
+   # Remove axis ticks and labels for a cleaner look on the piano roll
    plt.xticks([])
    plt.yticks([])
+   
    plt.savefig('output/intervals/pianoroll/' + file_name)
    # plt.show()
    plt.close()
