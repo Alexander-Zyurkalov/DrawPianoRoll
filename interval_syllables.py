@@ -80,5 +80,5 @@ for i, root in enumerate(bases):
       img_url = f"piano_{leftToRight}_{rightToLeft}.png"
       notes = [root+'0', n_note + str((i+j)//12)]
       draw_keyboard(img_url, notes)
-      print(f"{leftToRight}\tmnemonic\t{rightToLeft}\t{intervalNames[j]}\t{img_url}")
+      print(f"{leftToRight}\t\t{rightToLeft}\t\t{intervalNames[j]}\t<img src=\"{img_url}\">")
 print("count = ", count)
