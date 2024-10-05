@@ -9,7 +9,7 @@ note_names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 plt.figure(figsize=(15, 2 * octaves))  # Increase the height of the graph to display more octaves
 plt.ylim(0, total_keys)
 plt.xlim(0, 28)
-plt.yticks(range(total_keys), [f'{note}{octave}' for octave in range(1, octaves + 1) for note in note_names])
+# plt.yticks(range(total_keys), [f'{note}{octave}' for octave in range(1, octaves + 1) for note in note_names])
 
 # Draw the background of the keys with pale colors
 for i in range(total_keys):
@@ -70,8 +70,9 @@ def draw_chords_for_key(root, chord_type, base_octave, shift_x=1):
    for i, chord in enumerate(chords):
       draw_chord(chord, shift_x + i * 4, colors[i])
 
-draw_chords_for_key(chord_key, 'major', 2)
-draw_chords_for_key(chord_key, 'minor', 2, shift_x=13)
+# draw_chords_for_key(chord_key, 'major', 2)
+# draw_chords_for_key(chord_key, 'minor', 2, shift_x=13)
+draw_chord([18, 22], 2, 'lightblue')
 
 # Set up the grid and remove the labels with pale colors
 plt.grid(True, color='whitesmoke', linestyle='-', linewidth=1.5)

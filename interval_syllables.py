@@ -36,9 +36,37 @@ def draw_keyboard(file_name: str, highlighted_notes=None):
          plt.gca().add_patch(plt.Rectangle((key_index + 0.7, 1.5), 0.6, 1.5, facecolor=color, edgecolor='black'))
 
    plt.axis('off')  # Hide the axes
-   plt.savefig('output/intervals/' + file_name)
+   plt.savefig('output/intervals/keyboard/' + file_name)
    plt.close()
 
+def get_note_index(note:str):
+   note_name = note[0]
+   octave = int(note[1])
+   return note_names.index(note_name) + octave * keys_per_octave
+
+def draw_piano_roll(file_name: str, note_list: list[str]):
+   start_x = 1
+   note_indexes = [get_note_index(note) for note in note_list]
+   total_keys = octaves * keys_per_octave
+   plt.figure(figsize=(8, 2*octaves))  # Increase the height of the graph to display more octaves
+   plt.ylim(0, total_keys)
+   plt.xlim(0, 5)
+
+   for i in range(total_keys):
+      is_sharp = note_names[i % keys_per_octave] in black_keys
+      back_colour = 'whitesmoke' if is_sharp else 'white'
+      plt.gca().add_patch(plt.Rectangle((0, i), 28, 1,
+                                        facecolor=back_colour, edgecolor='whitesmoke'))
+
+   for i, note in enumerate(note_indexes):
+      plt.gca().add_patch(plt.Rectangle((start_x, note), 3, 1,
+                                        facecolor='pink', edgecolor='lightcoral'))
+   plt.grid(True, color='whitesmoke', linestyle='-', linewidth=1.5)
+   plt.xticks([])
+   plt.yticks([])
+   plt.savefig('output/intervals/pianoroll/' + file_name)
+   # plt.show()
+   plt.close()
 
 
 root_suffix = 'u'
@@ -77,8 +105,14 @@ for i, root in enumerate(bases):
          continue
       leftToRight = root + root_suffix + n_note + up_quality
       rightToLeft = n_note + root_suffix + root + do_quality
-      img_url = f"piano_{leftToRight}_{rightToLeft}.png"
+      img_url_keyboard = f"keyboard_{leftToRight}_{rightToLeft}.png"
+      img_url_piano_roll = f"pianoroll_{leftToRight}_{rightToLeft}.png"
       notes = [root+'0', n_note + str((i+j)//12)]
-      draw_keyboard(img_url, notes)
-      print(f"{leftToRight}\t\t{rightToLeft}\t\t{intervalNames[j]}\t<img src=\"{img_url}\">")
+      draw_keyboard(img_url_keyboard, notes)
+      draw_piano_roll(img_url_piano_roll, notes)
+      print(f"{leftToRight}\t\t"
+            f"{rightToLeft}\t\t"
+            f"{intervalNames[j]}\t"
+            f"<img src=\"{img_url_keyboard}\">\t"
+            f"<img src=\"{img_url_piano_roll}\">")
 print("count = ", count)
