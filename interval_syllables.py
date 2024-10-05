@@ -10,9 +10,7 @@ note_names = bases
 white_keys = ['K', 'D', 'M', 'F', 'G', 'L', 'B']
 white_keys_per_octave = len(white_keys)
 total_white_keys = octaves * white_keys_per_octave
-# black_keys = ['T', 'N', 'J', 'R', 'P']
-black_keys = ['T', 'N']
-black_keys_per_octave = len(black_keys)
+black_keys = ['T', 'N', 'J', 'R', 'P']
 
 # Define white and black key indices for an octave
 white_key_positions = {'K': 0, 'D': 1, 'M': 2, 'F': 3, 'G': 4, 'L': 5, 'B': 6}
