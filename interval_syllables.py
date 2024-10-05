@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from make_piano_chord_pictures import height
+from draw_piano_roll import total_keys
 
 octaves = 2  # Set the number of octaves you want to see
 keys_per_octave = 12
@@ -54,10 +54,7 @@ def draw_piano_roll(file_name: str, note_list: list[str]):
    plt.ylim(0, total_keys)
    plt.xlim(0, 5)
 
-   smallest_index = min(note_indexes)
-   biggest_index = max(note_indexes)
-   height = biggest_index - smallest_index
-   start_index_to_place_in_the_middle = total_keys//2 - height//2 - smallest_index
+   start_index_to_place_in_the_middle = calculate_start_index(note_indexes, total_keys)
 
    # Draw the background for the piano roll
    for i in range(-start_index_to_place_in_the_middle, total_keys-start_index_to_place_in_the_middle):
@@ -78,6 +75,14 @@ def draw_piano_roll(file_name: str, note_list: list[str]):
    plt.savefig('output/intervals/pianoroll/' + file_name)
    # plt.show()
    plt.close()
+
+
+def calculate_start_index(note_indexes, total_keys):
+   smallest_index = min(note_indexes)
+   biggest_index = max(note_indexes)
+   height = biggest_index - smallest_index
+   start_index_to_place_in_the_middle = total_keys // 2 - height // 2 - smallest_index
+   return start_index_to_place_in_the_middle
 
 
 root_suffix = 'u'
