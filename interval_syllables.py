@@ -48,7 +48,7 @@ def draw_keyboard(file_name: str, highlighted_notes=None):
 
    plt.axis('off')  # Hide the axes
    plt.savefig('output/intervals/keyboard/' + file_name)
-   plt.show()
+   # plt.show()
    plt.close()
 
 def get_note_index(note:str):
