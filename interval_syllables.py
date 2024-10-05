@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+from make_piano_chord_pictures import height
+
 octaves = 2  # Set the number of octaves you want to see
 keys_per_octave = 12
 white_keys_per_octave = 7
@@ -52,16 +54,21 @@ def draw_piano_roll(file_name: str, note_list: list[str]):
    plt.ylim(0, total_keys)
    plt.xlim(0, 5)
 
+   smallest_index = min(note_indexes)
+   biggest_index = max(note_indexes)
+   height = biggest_index - smallest_index
+   start_index_to_place_in_the_middle = total_keys//2 - height//2 - smallest_index
+
    # Draw the background for the piano roll
-   for i in range(total_keys):
+   for i in range(-start_index_to_place_in_the_middle, total_keys-start_index_to_place_in_the_middle):
       is_sharp = note_names[i % keys_per_octave] in black_keys
       back_colour = 'whitesmoke' if is_sharp else 'white'
-      plt.gca().add_patch(plt.Rectangle((0, i), 28, 1,
+      plt.gca().add_patch(plt.Rectangle((0, i+start_index_to_place_in_the_middle), 28, 1,
                                         facecolor=back_colour, edgecolor='whitesmoke'))
 
    # Draw the notes on the piano roll
    for i, note in enumerate(note_indexes):
-      plt.gca().add_patch(plt.Rectangle((start_x, note), 3, 1,
+      plt.gca().add_patch(plt.Rectangle((start_x, note+start_index_to_place_in_the_middle), 3, 1,
                                         facecolor='pink', edgecolor='whitesmoke'))
 
    # Remove axis ticks and labels for a cleaner look on the piano roll
@@ -112,11 +119,11 @@ for i, root in enumerate(bases):
       img_url_keyboard = f"keyboard_{leftToRight}_{rightToLeft}.png"
       img_url_piano_roll = f"pianoroll_{leftToRight}_{rightToLeft}.png"
       notes = [root+'0', n_note + str((i+j)//12)]
-      draw_keyboard(img_url_keyboard, notes)
-      draw_piano_roll(img_url_piano_roll, notes)
       print(f"{leftToRight}\t\t"
             f"{rightToLeft}\t\t"
             f"{intervalNames[j]}\t"
             f"<img src=\"{img_url_keyboard}\">\t"
             f"<img src=\"{img_url_piano_roll}\">")
+      draw_keyboard(img_url_keyboard, notes)
+      draw_piano_roll(img_url_piano_roll, notes)
 print("count = ", count)
