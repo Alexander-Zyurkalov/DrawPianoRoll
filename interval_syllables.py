@@ -100,14 +100,8 @@ pe_up = 'u'
 mi_do = 'e'
 ma_do = 'o'
 pe_do = 'y'
-tr_up = ''
-tr_do = ''
-intervalQualities = {
-   mi_up: 'm',
-   ma_up: 'M',
-   pe_up: 'P',
-   tr_up: ''
-}
+tr_up = 'я'
+tr_do = 'ё'
 intervalNames = ['P1', 'm2', 'M2', 'm3', 'M3', 'P4', 'Triton', 'P5', 'm6', 'M6', 'm7', 'M7', 'Octave']
 up_qualities = [root_suffix, mi_up, ma_up, mi_up, ma_up, pe_up, tr_up, pe_up, mi_up, ma_up, mi_up, ma_up, pe_up + pe_up]
 do_qualities = [root_suffix, mi_do, ma_do, mi_do, ma_do, pe_do, tr_do, pe_do, mi_do, ma_do, mi_do, ma_do, pe_do + pe_do]
@@ -125,8 +119,6 @@ for i, root in enumerate(bases):
       if root == n_note:
          continue
       count += 1
-      if intervalNames[j] == 'Triton':
-         continue
       leftToRight = root + root_suffix + n_note + up_quality
       rightToLeft = n_note + root_suffix + root + do_quality
       img_url_keyboard = f"keyboard_{leftToRight}_{rightToLeft}.png"
