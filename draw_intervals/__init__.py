@@ -51,8 +51,9 @@ def get_note_index(note:str):
    return note_names.index(note_name) + octave * keys_per_octave
 
 
-def draw_keyboard(file_name: str, path, highlighted_notes=None):
+def draw_keyboard(file_name: str, path, highlighted_notes=None, colours=None):
    highlighted_notes = highlighted_notes or []
+   colours = colours or {}
    note_indexes = [get_note_index(note) for note in highlighted_notes]
    start_index = calculate_start_index(note_indexes, total_keys)
    start_white_key = round(start_index / keys_per_octave * white_keys_per_octave)
@@ -65,18 +66,22 @@ def draw_keyboard(file_name: str, path, highlighted_notes=None):
    for i in range(-start_white_key, white_keys_per_octave * octaves - start_white_key):
       white_key = white_keys[i % white_keys_per_octave]
       octave = i // white_keys_per_octave
-      color = 'lightcoral' if f'{white_key}{octave}' in highlighted_notes else 'white'
+      colour = 'white'
+      if f'{white_key}{octave}' in highlighted_notes:
+         colour = colours.get(f'{white_key}{octave}', 'lightcoral')
       plt.gca().add_patch(plt.Rectangle((i, 0), 1, 3,
-                                        facecolor=color, edgecolor='black'))
+                                        facecolor=colour, edgecolor='black'))
 
    for i in range(-start_white_key, white_keys_per_octave * octaves - start_white_key):
       white_key = white_keys[i % white_keys_per_octave]
       octave = i // white_keys_per_octave
       if white_key in white_key_to_black_key:
          black_key = white_key_to_black_key[white_key]
-         color = 'darkred' if f'{black_key}{octave}' in highlighted_notes else 'black'
+         colour = 'black'
+         if f'{black_key}{octave}' in highlighted_notes:
+            colour = colours.get(f'{black_key}{octave}', 'darkred')
          plt.gca().add_patch(plt.Rectangle((i+0.7, 1.3), (1-0.7)*2, 1.7,
-                                           facecolor=color, edgecolor='black'))
+                                           facecolor=colour, edgecolor='black'))
 
    plt.axis('off')  # Hide the axes
    plt.savefig(path + file_name)

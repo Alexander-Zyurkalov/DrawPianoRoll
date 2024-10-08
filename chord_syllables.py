@@ -25,22 +25,26 @@ pe_do = 'y'
 tr_up = 'ya'
 tr_do = 'yo'
 
+class Chord:
+   notes: list[str]
+   colours: dict[str, str]
+
 def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversionType,
-               base_octave: int) -> list[str]:
+               base_octave: int) -> Chord:
+
    root_index = bases.index(root_)
 
    if chord_type == ChordType.MAJOR:
-      chord_intervals = [0, 4, 7]  # Intervals for a major triad (Root, Major Third, Perfect Fifth)
+      chord_interval_nums = [0, 4, 7]
    elif chord_type ==ChordType.MINOR:
-      chord_intervals = [0, 3, 7]  # Intervals for a minor triad (Root, Minor Third, Perfect Fifth)
+      chord_interval_nums = [0, 3, 7]
    elif chord_type == ChordType.AUGMENTED:
-      chord_intervals = [0, 4, 8]
+      chord_interval_nums = [0, 4, 8]
    elif chord_type == ChordType.DIMINISHED:
-      chord_intervals = [0, 3, 6]
-   else:
-      raise ValueError("Unsupported chord type. Use 'major' or 'minor'.")
+      chord_interval_nums = [0, 3, 6]
 
-   notes = [(root_index + interval) for interval in chord_intervals]
+
+   notes = [(root_index + interval) for interval in chord_interval_nums]
 
    if inversion_type == ChordInversionType.ROOT:
       pass
@@ -52,7 +56,10 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
    if all(note >= 12 for note in notes):
       notes = [note-12 for note in notes]
 
-   return [f"{bases[note_i % keys_per_octave]}{note_i // keys_per_octave + base_octave}" for note_i in sorted(notes)]
+   return_chord= Chord()
+   return_chord.notes = [f"{bases[note_i % keys_per_octave]}{note_i // keys_per_octave + base_octave}" for note_i in sorted(notes)]
+   return_chord.colours = {}
+   return return_chord
 
 count = 0
 for i, root in enumerate(bases):
@@ -61,11 +68,11 @@ for i, root in enumerate(bases):
          if chord_type == ChordType.AUGMENTED and inversion_type != ChordInversionType.ROOT:
             continue
          chord = make_chord(root, chord_type, inversion_type, 0)
-         chord_name = "".join(chord)
+         chord_name = "".join(chord.notes)
          print(chord_name)
          file_name_keyboard = f"{chord_name}-{chord_type.value}-{inversion_type.value}-keyboard.png"
          file_name_pianoroll = f"{chord_name}-{chord_type.value}-{inversion_type.value}-pianoroll.png"
-         draw_keyboard(file_name_keyboard, 'output/chords/keyboard/', chord)
-         draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll, chord)
+         draw_keyboard(file_name_keyboard, 'output/chords/keyboard/', chord.notes)
+         draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll, chord.notes)
          count += 1
 print("count = ", count)
