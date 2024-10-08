@@ -65,8 +65,6 @@ count = 0
 for i, root in enumerate(bases):
    for inversion_type in ChordInversionType:
       for chord_type in ChordType:
-         if chord_type == ChordType.AUGMENTED and inversion_type != ChordInversionType.ROOT:
-            continue
          chord = make_chord(root, chord_type, inversion_type, 0)
          chord_name = "".join(chord.notes)
          print(chord_name)
