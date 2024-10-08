@@ -106,11 +106,11 @@ for i, root in enumerate(bases):
          file_name_pianoroll = f"{chord_name}-pianoroll.png"
          file_name_pianoroll_coloured = (f"{chord_name}-pianoroll-coloured.png")
          print(f"{chord.syllables}\t\t"
-               f"{file_name_keyboard}\t"
-               f"{file_name_pianoroll}\t"
-               f"{chord_type.value} {inversion_type.value}\t"
-               f"{file_name_keyboard_coloured}\t"
-               f"{file_name_pianoroll_coloured}")
+               f"<img src=\"{file_name_keyboard}\">\t"
+               f"<img src=\"{file_name_pianoroll}\">\t"
+               f"<img src=\"{chord_type.value} {inversion_type.value}\t"
+               f"<img src=\"{file_name_keyboard_coloured}\">\t"
+               f"<img src=\"{file_name_pianoroll_coloured}\">")
          draw_keyboard('output/chords/keyboard/', file_name_keyboard, chord.notes)
          draw_keyboard('output/chords/keyboard/', file_name_keyboard_coloured, chord.notes,
                        chord.colours)
