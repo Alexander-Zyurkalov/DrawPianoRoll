@@ -14,7 +14,7 @@ black_key_positions = {'T': 0, 'N': 1, 'J': 3, 'R': 4, 'P': 5}
 white_key_to_black_key = {'K': 'T', 'D': 'N', 'F': 'J', 'G': 'R', 'L': 'P'}
 
 
-def draw_piano_roll(file_name: str, note_list: list[str]):
+def draw_piano_roll(path, file_name: str, note_list: list[str]):
    start_x = 1
    note_indexes = [get_note_index(note) for note in note_list]
    total_keys = octaves * keys_per_octave
@@ -40,7 +40,7 @@ def draw_piano_roll(file_name: str, note_list: list[str]):
    plt.xticks([])
    plt.yticks([])
 
-   plt.savefig('output/intervals/pianoroll/' + file_name)
+   plt.savefig(path + file_name)
    # plt.show()
    plt.close()
 

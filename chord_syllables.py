@@ -1,6 +1,6 @@
 from enum import Enum
 
-from draw_intervals import draw_keyboard, bases, keys_per_octave
+from draw_intervals import draw_keyboard, bases, keys_per_octave, draw_piano_roll
 
 
 class ChordType(Enum):
@@ -62,8 +62,10 @@ for i, root in enumerate(bases):
             continue
          chord = make_chord(root, chord_type, inversion_type, 0)
          chord_name = "".join(chord)
-         file_name = f"{chord_name}-{chord_type.value}-{inversion_type.value}.png"
          print(chord_name)
-         draw_keyboard(file_name, 'output/chords/keyboard/', chord)
+         file_name_keyboard = f"{chord_name}-{chord_type.value}-{inversion_type.value}-keyboard.png"
+         file_name_pianoroll = f"{chord_name}-{chord_type.value}-{inversion_type.value}-pianoroll.png"
+         draw_keyboard(file_name_keyboard, 'output/chords/keyboard/', chord)
+         draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll, chord)
          count += 1
 print("count = ", count)
