@@ -95,7 +95,7 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
    return return_chord
 
 count = 0
-print("Syllables\mnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured")
+print("Syllables\tmnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured")
 for i, root in enumerate(bases):
    for inversion_type in ChordInversionType:
       for chord_type in ChordType:
