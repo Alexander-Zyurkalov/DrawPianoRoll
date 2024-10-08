@@ -82,9 +82,13 @@ for i, root in enumerate(bases):
          file_name_keyboard_coloured = (f"{root}-{chord_name}-{chord_type.value}-"
                                         f"{inversion_type.value}-keyboard-coloured.png")
          file_name_pianoroll = f"{root}-{chord_name}-{chord_type.value}-{inversion_type.value}-pianoroll.png"
+         file_name_pianoroll_coloured = (f"{root}-{chord_name}-{chord_type.value}-"
+                                         f"{inversion_type.value}-pianoroll-coloured.png")
          draw_keyboard('output/chords/keyboard/', file_name_keyboard, chord.notes)
          draw_keyboard('output/chords/keyboard/', file_name_keyboard_coloured, chord.notes,
                        chord.colours)
          draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll, chord.notes)
+         draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll_coloured,
+                         chord.notes, chord.colours)
          count += 1
 print("count = ", count)

@@ -14,7 +14,8 @@ black_key_positions = {'T': 0, 'N': 1, 'J': 3, 'R': 4, 'P': 5}
 white_key_to_black_key = {'K': 'T', 'D': 'N', 'F': 'J', 'G': 'R', 'L': 'P'}
 
 
-def draw_piano_roll(path, file_name: str, note_list: list[str]):
+def draw_piano_roll(path, file_name: str, note_list: list[str], colours=None):
+   colours = colours or {}
    start_x = 1
    note_indexes = [get_note_index(note) for note in note_list]
    total_keys = octaves * keys_per_octave
@@ -33,8 +34,9 @@ def draw_piano_roll(path, file_name: str, note_list: list[str]):
 
    # Draw the notes on the piano roll
    for i, note in enumerate(note_indexes):
+      colour = colours.get(note_list[i], 'pink')
       plt.gca().add_patch(plt.Rectangle((start_x, note+start_index_to_place_in_the_middle), 3, 1,
-                                        facecolor='pink', edgecolor='whitesmoke'))
+                                        facecolor=colour, edgecolor='whitesmoke'))
 
    # Remove axis ticks and labels for a cleaner look on the piano roll
    plt.xticks([])
