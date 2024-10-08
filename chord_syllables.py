@@ -37,16 +37,16 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
 
    if chord_type == ChordType.MAJOR:
       chord_interval_nums = [0, 4, 7]
-      colours = ['yellow', 'green', 'yellow']
-   elif chord_type ==ChordType.MINOR:
+      colours = ['lightyellow', 'lightgreen', 'lightyellow']
+   elif chord_type == ChordType.MINOR:
       chord_interval_nums = [0, 3, 7]
-      colours = ['yellow', 'blue', 'yellow']
+      colours = ['lightyellow', 'lightblue', 'lightyellow']
    elif chord_type == ChordType.AUGMENTED:
       chord_interval_nums = [0, 4, 8]
-      colours = ['yellow', 'green', 'orange']
+      colours = ['lightyellow', 'lightgreen', 'lightsalmon']
    elif chord_type == ChordType.DIMINISHED:
       chord_interval_nums = [0, 3, 6]
-      colours = ['yellow', 'blue', 'purple']
+      colours = ['lightyellow', 'lightblue', 'plum']
 
    notes = [(root_index + interval) for interval in chord_interval_nums]
 
