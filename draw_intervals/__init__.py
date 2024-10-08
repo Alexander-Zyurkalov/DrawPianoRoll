@@ -51,7 +51,7 @@ def get_note_index(note:str):
    return note_names.index(note_name) + octave * keys_per_octave
 
 
-def draw_keyboard(file_name: str, highlighted_notes=None):
+def draw_keyboard(file_name: str, path, highlighted_notes=None):
    highlighted_notes = highlighted_notes or []
    note_indexes = [get_note_index(note) for note in highlighted_notes]
    start_index = calculate_start_index(note_indexes, total_keys)
@@ -79,7 +79,7 @@ def draw_keyboard(file_name: str, highlighted_notes=None):
                                            facecolor=color, edgecolor='black'))
 
    plt.axis('off')  # Hide the axes
-   plt.savefig('output/intervals/keyboard/' + file_name)
+   plt.savefig(path + file_name)
    # plt.show()
    plt.close()
 
