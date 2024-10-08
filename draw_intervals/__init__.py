@@ -51,7 +51,7 @@ def get_note_index(note:str):
    return note_names.index(note_name) + octave * keys_per_octave
 
 
-def draw_keyboard(file_name: str, path, highlighted_notes=None, colours=None):
+def draw_keyboard(path, file_name: str, highlighted_notes=None, colours=None):
    highlighted_notes = highlighted_notes or []
    colours = colours or {}
    note_indexes = [get_note_index(note) for note in highlighted_notes]

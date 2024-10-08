@@ -37,6 +37,6 @@ for i, root in enumerate(bases):
             f"{intervalNames[j]}\t"
             f"<img src=\"{img_url_keyboard}\">\t"
             f"<img src=\"{img_url_piano_roll}\">")
-      draw_keyboard(img_url_keyboard, 'output/intervals/keyboard/', notes)
+      draw_keyboard('output/intervals/keyboard/', img_url_keyboard, notes)
       draw_piano_roll('output/intervals/pianoroll/', img_url_piano_roll, notes)
 print("count = ", count)
