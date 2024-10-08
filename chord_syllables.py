@@ -95,18 +95,22 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
    return return_chord
 
 count = 0
+print("Syllables\mnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured")
 for i, root in enumerate(bases):
    for inversion_type in ChordInversionType:
       for chord_type in ChordType:
          chord = make_chord(root, chord_type, inversion_type, 0)
-         chord_name = chord.syllables
-         print(f"{chord_name}\t")
-         file_name_keyboard = f"{root}-{chord_name}-{chord_type.value}-{inversion_type.value}-keyboard.png"
-         file_name_keyboard_coloured = (f"{root}-{chord_name}-{chord_type.value}-"
-                                        f"{inversion_type.value}-keyboard-coloured.png")
-         file_name_pianoroll = f"{root}-{chord_name}-{chord_type.value}-{inversion_type.value}-pianoroll.png"
-         file_name_pianoroll_coloured = (f"{root}-{chord_name}-{chord_type.value}-"
-                                         f"{inversion_type.value}-pianoroll-coloured.png")
+         chord_name = f"{root}-{chord.syllables}-{chord_type.value}-{inversion_type.value}"
+         file_name_keyboard = f"{chord_name}-keyboard.png"
+         file_name_keyboard_coloured = (f"{chord_name}-keyboard-coloured.png")
+         file_name_pianoroll = f"{chord_name}-pianoroll.png"
+         file_name_pianoroll_coloured = (f"{chord_name}-pianoroll-coloured.png")
+         print(f"{chord.syllables}\t\t"
+               f"{file_name_keyboard}\t"
+               f"{file_name_pianoroll}\t"
+               f"{chord_type.value} {inversion_type.value}\t"
+               f"{file_name_keyboard_coloured}\t"
+               f"{file_name_pianoroll_coloured}")
          draw_keyboard('output/chords/keyboard/', file_name_keyboard, chord.notes)
          draw_keyboard('output/chords/keyboard/', file_name_keyboard_coloured, chord.notes,
                        chord.colours)
