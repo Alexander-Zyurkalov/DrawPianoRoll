@@ -108,7 +108,7 @@ for i, root in enumerate(bases):
          print(f"{chord.syllables}\t\t"
                f"<img src=\"{file_name_keyboard}\">\t"
                f"<img src=\"{file_name_pianoroll}\">\t"
-               f"<img src=\"{chord_type.value} {inversion_type.value}\t"
+               f"{chord_type.value} {inversion_type.value}\t"
                f"<img src=\"{file_name_keyboard_coloured}\">\t"
                f"<img src=\"{file_name_pianoroll_coloured}\">")
          draw_keyboard('output/chords/keyboard/', file_name_keyboard, chord.notes)
