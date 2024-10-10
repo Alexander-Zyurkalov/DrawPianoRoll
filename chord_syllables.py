@@ -36,11 +36,11 @@ pe_up_colour = 'lightyellow'
 au_up_colour = 'lightsalmon'
 di_up_colour = 'plum'
 
-mi_do_colour = 'blue'
-ma_do_colour = 'green'
-pe_do_colour = 'yellow'
-au_do_colour = 'salmon'
-di_do_colour = 'purple'
+mi_do_colour = 'cornflowerblue'
+ma_do_colour = 'mediumseagreen'
+pe_do_colour = 'khaki'
+au_do_colour = 'darksalmon'
+di_do_colour = 'orchid'
 
 class Chord:
    notes: list[str]
