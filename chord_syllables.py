@@ -28,6 +28,18 @@ au_do = 'e'
 di_up = 'ya'
 di_do = 'yo'
 
+root_colour = 'lightyellow'
+mi_up_colour = 'lightblue'
+ma_up_colour = 'lightgreen'
+pe_up_colour = 'lightyellow'
+mi_do_colour = 'lightblue'
+ma_do_colour = 'lightgreen'
+pe_do_colour = 'lightyellow'
+
+au_up_colour = 'lightsalmon'
+au_do_colour = 'lightsalmon'
+di_up_colour = 'plum'
+di_do_colour = 'plum'
 
 class Chord:
    notes: list[str]
@@ -43,16 +55,16 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
 
    if chord_type == ChordType.MAJOR:
       chord_interval_nums = [0, 4, 7]
-      colours = ['lightyellow', 'lightgreen', 'lightyellow']
+      colours = [root_colour, ma_up_colour, pe_up_colour]
    elif chord_type == ChordType.MINOR:
       chord_interval_nums = [0, 3, 7]
-      colours = ['lightyellow', 'lightblue', 'lightyellow']
+      colours = [root_colour, mi_up_colour, pe_up_colour]
    elif chord_type == ChordType.AUGMENTED:
       chord_interval_nums = [0, 4, 8]
-      colours = ['lightyellow', 'lightgreen', 'lightsalmon']
+      colours = [root_colour, ma_up_colour, au_up_colour]
    elif chord_type == ChordType.DIMINISHED:
       chord_interval_nums = [0, 3, 6]
-      colours = ['lightyellow', 'lightblue', 'plum']
+      colours = [root_colour, mi_up_colour, di_up_colour]
 
    notes = [(root_index + interval) for interval in chord_interval_nums]
 
