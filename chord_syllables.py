@@ -29,16 +29,17 @@ di_up = 'ya'
 di_do = 'yo'
 
 root_colour = 'lightyellow'
+
 mi_up_colour = 'lightblue'
 ma_up_colour = 'lightgreen'
 pe_up_colour = 'lightyellow'
+au_up_colour = 'lightsalmon'
+di_up_colour = 'plum'
+
 mi_do_colour = 'lightblue'
 ma_do_colour = 'lightgreen'
 pe_do_colour = 'lightyellow'
-
-au_up_colour = 'lightsalmon'
 au_do_colour = 'lightsalmon'
-di_up_colour = 'plum'
 di_do_colour = 'plum'
 
 class Chord:
@@ -55,16 +56,12 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
 
    if chord_type == ChordType.MAJOR:
       chord_interval_nums = [0, 4, 7]
-      colours = [root_colour, ma_up_colour, pe_up_colour]
    elif chord_type == ChordType.MINOR:
       chord_interval_nums = [0, 3, 7]
-      colours = [root_colour, mi_up_colour, pe_up_colour]
    elif chord_type == ChordType.AUGMENTED:
       chord_interval_nums = [0, 4, 8]
-      colours = [root_colour, ma_up_colour, au_up_colour]
    elif chord_type == ChordType.DIMINISHED:
       chord_interval_nums = [0, 3, 6]
-      colours = [root_colour, mi_up_colour, di_up_colour]
 
    notes = [(root_index + interval) for interval in chord_interval_nums]
 
@@ -74,24 +71,37 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
          mi_up if chord_type == ChordType.MINOR or chord_type == ChordType.DIMINISHED else ma_up,
          di_up if chord_type == ChordType.DIMINISHED else pe_up
       ]
+      colours = [
+         root_colour,
+         mi_up_colour if chord_type == ChordType.MINOR or chord_type == ChordType.DIMINISHED else ma_up_colour,
+         di_up_colour if chord_type == ChordType.DIMINISHED else pe_up_colour
+      ]
    if inversion_type == ChordInversionType.FIRST_INVERSION:
       notes[0] += 12
       notes  = [notes[1], notes[2], notes[0]]
-      colours = [colours[1], colours[2], colours[0]]
       syllables = [
          mi_do if chord_type == ChordType.MINOR or chord_type == ChordType.DIMINISHED else ma_do,
          di_do if chord_type == ChordType.DIMINISHED else pe_do,
          root_suffix
       ]
+      colours = [
+         mi_do_colour if chord_type == ChordType.MINOR or chord_type == ChordType.DIMINISHED else ma_do_colour,
+         di_do_colour if chord_type == ChordType.DIMINISHED else pe_do,
+         root_colour
+      ]
    if inversion_type == ChordInversionType.SECOND_INVERSION:
       notes[2] -= 12
       notes  = [notes[2], notes[0], notes[1]]
-      colours = [colours[2], colours[0], colours[1]]
       notes = [note+12 for note in notes]
       syllables = [
          di_do if chord_type == ChordType.DIMINISHED else pe_do,
          root_suffix,
          mi_up if chord_type == ChordType.MINOR or chord_type == ChordType.DIMINISHED else ma_up,
+      ]
+      colours = [
+         di_do_colour if chord_type == ChordType.DIMINISHED else pe_do_colour,
+         root_colour,
+         mi_up_colour if chord_type == ChordType.MINOR or chord_type == ChordType.DIMINISHED else ma_up_colour,
       ]
    if all(note >= 12 for note in notes):
       notes = [note-12 for note in notes]
