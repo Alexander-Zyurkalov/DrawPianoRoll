@@ -28,7 +28,7 @@ au_do = 'e'
 di_up = 'ya'
 di_do = 'yo'
 
-root_colour = 'lightyellow'
+root_colour = 'yellow'
 
 mi_up_colour = 'lightblue'
 ma_up_colour = 'lightgreen'
@@ -123,10 +123,10 @@ for i, root in enumerate(bases):
       for chord_type in ChordType:
          chord = make_chord(root, chord_type, inversion_type, 0)
          chord_name = f"{root}-{chord.syllables}-{chord_type.value}-{inversion_type.value}"
-         file_name_keyboard = f"{chord_name}-keyboard.png"
-         file_name_keyboard_coloured = (f"{chord_name}-keyboard-coloured.png")
-         file_name_pianoroll = f"{chord_name}-pianoroll.png"
-         file_name_pianoroll_coloured = (f"{chord_name}-pianoroll-coloured.png")
+         file_name_keyboard = f"{chord_name}-keyboard-2.png"
+         file_name_keyboard_coloured = (f"{chord_name}-keyboard-coloured-2.png")
+         file_name_pianoroll = f"{chord_name}-pianoroll-2.png"
+         file_name_pianoroll_coloured = (f"{chord_name}-pianoroll-coloured-2.png")
          print(f"{chord.syllables}\t\t"
                f"<img src=\"{file_name_keyboard}\">\t"
                f"<img src=\"{file_name_pianoroll}\">\t"
