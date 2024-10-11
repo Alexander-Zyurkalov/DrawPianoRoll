@@ -123,8 +123,8 @@ count = 0
 chord_from_file: Dict[str, Dict[str,str]] = read_file()
 with open('result.csv', mode='w') as csvfile:
    csvfile.write("Syllables\tMnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured\t"
-                 "relative_chord_type_1\trelative_chord_syllables_1\t"
-                 "relative_chord_type_2\trelative_chord_syllables_1\2"
+                 "relative_chord_type_1\trelative_chord_syllables_1\trelative_chord_keyboard_1\t"
+                 "relative_chord_type_2\trelative_chord_syllables_2\trelative_chord_keyboard_2"
                  "\n")
    for i, root in enumerate(bases[0:12]):
       for inversion_type in ChordInversionType:
@@ -154,6 +154,9 @@ with open('result.csv', mode='w') as csvfile:
                   continue
                relative_chord_syllables = make_chord(root, chord_type, relative_chord_type, 0).syllables
                relative_chords.append(f"{relative_chord_type.value}\t{relative_chord_syllables}")
+               relative_chord_name = f"{root}-{relative_chord_syllables}-{chord_type.value}-{relative_chord_type.value}"
+               relative_file_name_keyboard = f"{relative_chord_name}-keyboard-coloured-2.png"
+               relative_chords.append(f"<img src=\"{relative_file_name_keyboard}\">")
             file_str += "\t".join(relative_chords)
 
             print(chord.syllables)
