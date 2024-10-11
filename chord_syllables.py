@@ -123,7 +123,7 @@ count = 0
 chord_from_file: Dict[str, Dict[str,str]] = read_file()
 with open('result.csv', mode='w') as csvfile:
    csvfile.write("Syllables\tMnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured\n")
-   for i, root in enumerate(bases):
+   for i, root in enumerate(bases[0:12]):
       for inversion_type in ChordInversionType:
          for chord_type in ChordType:
             chord = make_chord(root, chord_type, inversion_type, 0)
