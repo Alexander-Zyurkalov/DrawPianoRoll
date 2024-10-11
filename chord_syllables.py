@@ -1,6 +1,8 @@
 from enum import Enum
+from typing import Dict
 
 from draw_intervals import draw_keyboard, bases, keys_per_octave, draw_piano_roll
+from my_csv import read_file
 
 
 class ChordType(Enum):
@@ -117,27 +119,39 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
    return return_chord
 
 count = 0
-print("Syllables\tmnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured")
-for i, root in enumerate(bases):
-   for inversion_type in ChordInversionType:
-      for chord_type in ChordType:
-         chord = make_chord(root, chord_type, inversion_type, 0)
-         chord_name = f"{root}-{chord.syllables}-{chord_type.value}-{inversion_type.value}"
-         file_name_keyboard = f"{chord_name}-keyboard-2.png"
-         file_name_keyboard_coloured = (f"{chord_name}-keyboard-coloured-2.png")
-         file_name_pianoroll = f"{chord_name}-pianoroll-2.png"
-         file_name_pianoroll_coloured = (f"{chord_name}-pianoroll-coloured-2.png")
-         print(f"{chord.syllables}\t\t"
-               f"<img src=\"{file_name_keyboard}\">\t"
-               f"<img src=\"{file_name_pianoroll}\">\t"
-               f"{chord_type.value} {inversion_type.value}\t"
-               f"<img src=\"{file_name_keyboard_coloured}\">\t"
-               f"<img src=\"{file_name_pianoroll_coloured}\">")
-         draw_keyboard('output/chords/keyboard/', file_name_keyboard, chord.notes)
-         draw_keyboard('output/chords/keyboard/', file_name_keyboard_coloured, chord.notes,
-                       chord.colours)
-         draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll, chord.notes)
-         draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll_coloured,
-                         chord.notes, chord.colours)
-         count += 1
+
+chord_from_file: Dict[str, Dict[str,str]] = read_file()
+with open('result.txt', mode='w') as csvfile:
+   csvfile.write("Syllables\tMnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured\n")
+   for i, root in enumerate(bases):
+      for inversion_type in ChordInversionType:
+         for chord_type in ChordType:
+            chord = make_chord(root, chord_type, inversion_type, 0)
+            chord_name = f"{root}-{chord.syllables}-{chord_type.value}-{inversion_type.value}"
+            file_name_keyboard = f"{chord_name}-keyboard-2.png"
+            file_name_keyboard_coloured = (f"{chord_name}-keyboard-coloured-2.png")
+            file_name_pianoroll = f"{chord_name}-pianoroll-2.png"
+            file_name_pianoroll_coloured = (f"{chord_name}-pianoroll-coloured-2.png")
+
+            mnemonic = ''
+            if chord.syllables in chord_from_file:
+               mnemonic = chord_from_file[chord.syllables]['Mnemonic']
+
+            file_str = f"{chord.syllables}\t" \
+                        f"{mnemonic}\t" \
+                        f"<img src=\"{file_name_keyboard}\">\t" \
+                        f"<img src=\"{file_name_pianoroll}\">\t" \
+                        f"{chord_type.value} {inversion_type.value}\t" \
+                        f"<img src=\"{file_name_keyboard_coloured}\">\t" \
+                        f"<img src=\"{file_name_pianoroll_coloured}\">"
+            print(chord.syllables)
+            csvfile.write(file_str + '\n')
+
+            draw_keyboard('output/chords/keyboard/', file_name_keyboard, chord.notes)
+            draw_keyboard('output/chords/keyboard/', file_name_keyboard_coloured, chord.notes,
+                          chord.colours)
+            draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll, chord.notes)
+            draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll_coloured,
+                            chord.notes, chord.colours)
+            count += 1
 print("count = ", count)
