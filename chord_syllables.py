@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Dict
+from typing import Dict, List
 
 from draw_intervals import draw_keyboard, bases, keys_per_octave, draw_piano_roll
 from my_csv import read_file
@@ -122,7 +122,10 @@ count = 0
 
 chord_from_file: Dict[str, Dict[str,str]] = read_file()
 with open('result.csv', mode='w') as csvfile:
-   csvfile.write("Syllables\tMnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured\n")
+   csvfile.write("Syllables\tMnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured\t"
+                 "relative_chord_type_1\trelative_chord_syllables_1\t"
+                 "relative_chord_type_2\trelative_chord_syllables_1\2"
+                 "\n")
    for i, root in enumerate(bases[0:12]):
       for inversion_type in ChordInversionType:
          for chord_type in ChordType:
@@ -138,12 +141,21 @@ with open('result.csv', mode='w') as csvfile:
                mnemonic = chord_from_file[chord.syllables]['Mnemonic']
 
             file_str = f"{chord.syllables}\t" \
-                        f"{mnemonic}\t" \
-                        f"<img src=\"{file_name_keyboard}\">\t" \
-                        f"<img src=\"{file_name_pianoroll}\">\t" \
-                        f"{chord_type.value} {inversion_type.value}\t" \
-                        f"<img src=\"{file_name_keyboard_coloured}\">\t" \
-                        f"<img src=\"{file_name_pianoroll_coloured}\">"
+                       f"{mnemonic}\t" \
+                       f"<img src=\"{file_name_keyboard}\">\t" \
+                       f"<img src=\"{file_name_pianoroll}\">\t" \
+                       f"{chord_type.value} {inversion_type.value}\t" \
+                       f"<img src=\"{file_name_keyboard_coloured}\">\t" \
+                       f"<img src=\"{file_name_pianoroll_coloured}\">\t"
+
+            relative_chords: List[str] = []
+            for relative_chord_type in ChordInversionType:
+               if relative_chord_type == inversion_type:
+                  continue
+               relative_chord_syllables = make_chord(root, chord_type, relative_chord_type, 0).syllables
+               relative_chords.append(f"{relative_chord_type.value}\t{relative_chord_syllables}")
+            file_str += "\t".join(relative_chords)
+
             print(chord.syllables)
             csvfile.write(file_str + '\n')
 
