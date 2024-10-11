@@ -121,7 +121,7 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
 count = 0
 
 chord_from_file: Dict[str, Dict[str,str]] = read_file()
-with open('result.txt', mode='w') as csvfile:
+with open('result.csv', mode='w') as csvfile:
    csvfile.write("Syllables\tMnemonic\tKeyboard\tPianoroll\tTypeAndQuality\tKeyboardColoured\tPianorollColoured\n")
    for i, root in enumerate(bases):
       for inversion_type in ChordInversionType:

@@ -3,7 +3,7 @@ from csv import DictReader
 from typing import Dict
 
 # Define the CSV file path
-csv_file_path = 'data.txt'
+csv_file_path = 'data.csv'
 
 
 def read_file() -> Dict[str, Dict[str,str]]:
