@@ -101,7 +101,7 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
       note_colours
    )
 
-
+print("Mode\tPicture")
 for mode in scales_intervals.keys():
    for note in note_names[0:12]:
       mode_up = make_modes(note, mode, base_octave=1, direction=Direction.UP)
