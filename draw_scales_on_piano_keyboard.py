@@ -106,8 +106,8 @@ for mode in scales_intervals.keys():
    for note in note_names[0:12]:
       mode_up = make_modes(note, mode, base_octave=1, direction=Direction.UP)
       mode_do = make_modes(note, mode, base_octave=1, direction=Direction.DOWN)
-      file_name_up = f"scale-{mode}-{note}-up.png"
-      file_name_do = f"scale-{mode}-{note}-do.png"
+      file_name_up = f"mode-{mode}-{note}-up.png"
+      file_name_do = f"mode-{mode}-{note}-do.png"
       draw_keyboard("output/scales/", file_name_up, mode_up.notes, mode_up.colours, 2)
       draw_keyboard("output/scales/", file_name_do, mode_do.notes, mode_do.colours, 2,)
       print(f"{mode} Mode: {note}->{note}\t<img src=\"{file_name_up}\"/>")
