@@ -36,12 +36,19 @@ def rgb_to_hex(rgb_color: List[float]) -> str:
 
 # Function to adjust brightness of the color
 def adjust_brightness(rgb_color: List[float], factor: float) -> List[float]:
-   return [min(1, max(0, c * factor)) for c in rgb_color]
+   if factor >= 0:
+      # Brighten: move color towards 1
+      return [min(1, c + (1 - c) * factor) for c in rgb_color]
+   else:
+      # Darken: move color towards 0
+      return [max(0, c * (1 + factor)) for c in rgb_color]
+
+
 
 # Function to determine the color based on the interval with brightness adjustment
 def get_interval_color(interval: str) -> str:
    interval_color_map = {
-      'P': '#999900',    # Yellow (Perfect intervals)
+      'P': '#FFFF00',    # Yellow (Perfect intervals)
       'm': '#003F7B',    # Dark Blue (Minor intervals)
       'M': '#00A41B',    # Green (Major intervals)
       'd': '#898989',    # Grey (Diminished intervals)
@@ -51,8 +58,8 @@ def get_interval_color(interval: str) -> str:
    rgb_color = hex_to_rgb(base_color)  # Convert to RGB
 
    # Determine a brightness factor based on the interval distance from the tonic
-   distance_from_tonic = abs(interval_semitones[interval])  # Absolute distance in semitones
-   factor = 1 + (0.1 * distance_from_tonic)
+   distance_from_tonic = interval_semitones[interval] # Absolute distance in semitones
+   factor = (0.05 * distance_from_tonic)
 
    adjusted_rgb = adjust_brightness(rgb_color, factor)  # Adjust brightness
    return rgb_to_hex(adjusted_rgb)  # Convert back to HEX
