@@ -163,8 +163,8 @@ with open('result.csv', mode='w') as csvfile:
             csvfile.write(file_str + '\n')
 
             draw_keyboard('output/chords/keyboard/', file_name_keyboard, chord.notes)
-            draw_keyboard('output/chords/keyboard/', file_name_keyboard_coloured, chord.notes,
-                          chord.colours)
+            draw_keyboard('output/chords/keyboard/', file_name_keyboard_coloured,
+                          chord.notes, chord.colours)
             draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll, chord.notes)
             draw_piano_roll('output/chords/pianoroll/', file_name_pianoroll_coloured,
                             chord.notes, chord.colours)

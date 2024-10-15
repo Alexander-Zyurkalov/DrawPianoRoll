@@ -1,13 +1,11 @@
 from matplotlib import pyplot as plt
 
-octaves = 2  # Set the number of octaves you want to see
+
 keys_per_octave = 12
-total_keys = octaves * keys_per_octave
-bases = ('K', 'T', 'D', 'N', 'M', 'F', 'J', 'G', 'R', 'L', 'P', 'B', 'K')
-note_names = bases
 white_keys = ['K', 'D', 'M', 'F', 'G', 'L', 'B']
 white_keys_per_octave = len(white_keys)
-total_white_keys = octaves * white_keys_per_octave
+bases = ('K', 'T', 'D', 'N', 'M', 'F', 'J', 'G', 'R', 'L', 'P', 'B', 'K')
+note_names = bases
 black_keys = ['T', 'N', 'J', 'R', 'P']
 white_key_positions = {'K': 0, 'D': 1, 'M': 2, 'F': 3, 'G': 4, 'L': 5, 'B': 6}
 black_key_positions = {'T': 0, 'N': 1, 'J': 3, 'R': 4, 'P': 5}
@@ -15,6 +13,9 @@ white_key_to_black_key = {'K': 'T', 'D': 'N', 'F': 'J', 'G': 'R', 'L': 'P'}
 
 
 def draw_piano_roll(path, file_name: str, note_list: list[str], colours=None):
+   octaves = 2  # Set the number of octaves you want to see
+   total_keys = octaves * keys_per_octave
+   total_white_keys = octaves * white_keys_per_octave
    colours = colours or {}
    start_x = 1
    note_indexes = [get_note_index(note) for note in note_list]
@@ -53,7 +54,9 @@ def get_note_index(note:str):
    return note_names.index(note_name) + octave * keys_per_octave
 
 
-def draw_keyboard(path, file_name: str, highlighted_notes=None, colours=None):
+def draw_keyboard(path, file_name: str, highlighted_notes: list[str] = None, colours: dict[str, str] = None, octaves=2):
+   total_keys = octaves * keys_per_octave
+   total_white_keys = octaves * white_keys_per_octave
    highlighted_notes = highlighted_notes or []
    colours = colours or {}
    note_indexes = [get_note_index(note) for note in highlighted_notes]
