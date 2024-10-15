@@ -95,19 +95,11 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
    )
 
 
-note = 'B'
-scale = 'Ionian'
-# highlighted_notes = make_colours(note, 'Ionian', base_octave=1)
-# highlighted_notes = make_colours(note, 'Dorian', base_octave=1)
-# highlighted_notes = make_colours(note, 'Phrygian', base_octave=1)
-# highlighted_notes = make_colours(note, 'Lydian', base_octave=1)
-# highlighted_notes = make_colours(note, 'Mixolydian', base_octave=1)
-# highlighted_notes = make_colours(note, 'Aeolian', base_octave=1)
-# highlighted_notes = make_colours(note, 'Locrian', base_octave=1)
-
-mode_up = make_modes(note, scale, base_octave=1, direction=Direction.UP)
-mode_do = make_modes(note, scale, base_octave=1, direction=Direction.DOWN)
-file_name_up = f"scale-{scale}-{note}-up.png"
-file_name_do = f"scale-{scale}-{note}-do.png"
-draw_keyboard("output/scales/", file_name_up, mode_up.notes, mode_up.colours, 2)
-draw_keyboard("output/scales/", file_name_do, mode_do.notes, mode_do.colours, 2,)
+for scale in scales_intervals.keys():
+   for note in note_names[0:12]:
+      mode_up = make_modes(note, scale, base_octave=1, direction=Direction.UP)
+      mode_do = make_modes(note, scale, base_octave=1, direction=Direction.DOWN)
+      file_name_up = f"scale-{scale}-{note}-up.png"
+      file_name_do = f"scale-{scale}-{note}-do.png"
+      draw_keyboard("output/scales/", file_name_up, mode_up.notes, mode_up.colours, 2)
+      draw_keyboard("output/scales/", file_name_do, mode_do.notes, mode_do.colours, 2,)
