@@ -105,20 +105,28 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
 
 def generate_mode_output(
       note: str, mode: str, direction: Direction, base_octave: int = 1, output_dir: str = "output/scales/"
-) -> str:
+) -> list[str]:
    mode_notes = make_modes(note, mode, base_octave=base_octave, direction=direction)
    dir_suffix = "up" if direction == Direction.UP else "do"
    file_name = f"mode-{mode}-{note}-{dir_suffix}.png"
    draw_keyboard(output_dir, file_name, mode_notes.notes, mode_notes.colours, 2)
    dir_arrow = "->" if direction == Direction.UP else "<-"
-   return f"{mode} Mode: {note}{dir_arrow}{note}\t<img src=\"{file_name}\"/>"
+   return [f"{mode} Mode: {note}{dir_arrow}{note}", "<img src=\"{file_name}\"/>"]
 
 modes_from_file: Dict[str, Dict[str,str]] = read_file()
 with open('modes2.txt', mode='w') as csvfile:
    csvfile.write("\t".join(['ModeAndDirection', 'KeyboardPicture', 'SongToPractice', 'Syllables', 
-                            'KeyboardPictureNoColours']))
+                            'KeyboardPictureNoColours']) + "\n")
    for mode in scales_intervals.keys():
       for note in note_names[0:12]:
          print(", ".join([mode, note]))
-         csvfile.write(generate_mode_output(note, mode, Direction.UP, base_octave=1) + "\n")
-         csvfile.write(generate_mode_output(note, mode, Direction.DOWN, base_octave=1) + "\n")
+         for direction in Direction:
+            (modeAndDirection, keyboardPicture) = generate_mode_output(note, mode, direction, base_octave=1)
+            songToPractice = ""
+            syllables = ""
+            keyboardPictureNoColoursIonian = ""
+            if modeAndDirection in modes_from_file:
+               songToPractice = modes_from_file[modeAndDirection]["SongToPractice"]
+               songToPractice = "" if songToPractice is None else songToPractice
+            output = "\t".join([modeAndDirection, keyboardPicture, songToPractice, syllables, keyboardPictureNoColoursIonian])
+            csvfile.write(output + "\n")
