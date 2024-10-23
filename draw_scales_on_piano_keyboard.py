@@ -131,13 +131,14 @@ with open('modes2.txt', mode='w') as csvfile:
          print(", ".join([mode, note]))
          for direction in Direction:
             mode_output = generate_mode_output(note, mode, direction, base_octave=1)
-            modeAndDirection = mode_output.mode_description
-            keyboardPicture = mode_output.image_tag
-            songToPractice = ""
+            mode_and_direction = mode_output.mode_description
+            keyboard_picture = mode_output.image_tag
+            song_to_practice = ""
             syllables = ""
-            keyboardPictureNoColoursIonian = ""
-            if modeAndDirection in modes_from_file:
-               songToPractice = modes_from_file[modeAndDirection]["SongToPractice"]
-               songToPractice = "" if songToPractice is None else songToPractice
-            output = "\t".join([modeAndDirection, keyboardPicture, songToPractice, syllables, keyboardPictureNoColoursIonian])
+            keyboard_picture_no_colours_ionian = ""
+            if mode_and_direction in modes_from_file:
+               song_to_practice = modes_from_file[mode_and_direction]["SongToPractice"]
+               song_to_practice = "" if song_to_practice is None else song_to_practice
+            output = "\t".join(
+               [mode_and_direction, keyboard_picture, song_to_practice, syllables, keyboard_picture_no_colours_ionian])
             csvfile.write(output + "\n")
