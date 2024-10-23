@@ -103,15 +103,24 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
    )
 
 
+@dataclass
+class ModeOutput:
+   mode_description: str
+   image_tag: str
+
+
 def generate_mode_output(
       note: str, mode: str, direction: Direction, base_octave: int = 1, output_dir: str = "output/scales/"
-) -> list[str]:
+) -> ModeOutput:
    mode_notes = make_modes(note, mode, base_octave=base_octave, direction=direction)
    dir_suffix = "up" if direction == Direction.UP else "do"
    file_name = f"mode-{mode}-{note}-{dir_suffix}.png"
    draw_keyboard(output_dir, file_name, mode_notes.notes, mode_notes.colours, 2)
    dir_arrow = "->" if direction == Direction.UP else "<-"
-   return [f"{mode} Mode: {note}{dir_arrow}{note}", "<img src=\"{file_name}\"/>"]
+   return ModeOutput(
+      f"{mode} Mode: {note}{dir_arrow}{note}",
+      f"<img src=\"{file_name}\"/>"
+   )
 
 modes_from_file: Dict[str, Dict[str,str]] = read_file()
 with open('modes2.txt', mode='w') as csvfile:
@@ -121,7 +130,9 @@ with open('modes2.txt', mode='w') as csvfile:
       for note in note_names[0:12]:
          print(", ".join([mode, note]))
          for direction in Direction:
-            (modeAndDirection, keyboardPicture) = generate_mode_output(note, mode, direction, base_octave=1)
+            mode_output = generate_mode_output(note, mode, direction, base_octave=1)
+            modeAndDirection = mode_output.mode_description
+            keyboardPicture = mode_output.image_tag
             songToPractice = ""
             syllables = ""
             keyboardPictureNoColoursIonian = ""
