@@ -55,14 +55,32 @@ def get_interval_color(interval: str) -> str:
       'd': '#898989',    # Grey (Diminished intervals)
       'A': '#540000'     # Dark Green (Augmented intervals)
    }
-   base_color = interval_color_map[interval[-2]]  # Base color from the map
-   rgb_color = hex_to_rgb(base_color)  # Convert to RGB
+   base_colour = interval_color_map[interval[-2]]  # Base colour from the map
+   rgb_colour = hex_to_rgb(base_colour)  # Convert to RGB
 
    # Determine a brightness factor based on the interval distance from the tonic
    distance_from_tonic = interval_semitones[interval] # Absolute distance in semitones
    factor = (0.05 * distance_from_tonic)
 
-   adjusted_rgb = adjust_brightness(rgb_color, factor)  # Adjust brightness
+   adjusted_rgb = adjust_brightness(rgb_colour, factor)  # Adjust brightness
+   return rgb_to_hex(adjusted_rgb)  # Convert back to HEX
+
+def get_interval_color2(interval: str) -> str:
+   interval_color_map = {
+      'P': '#FFFF00',    # Yellow (Perfect intervals)
+      'm': '#F08080',    # Dark Blue (Minor intervals)
+      'M': '#F08080',    # Green (Major intervals)
+      'd': '#F08080',    # Grey (Diminished intervals)
+      'A': '#F08080'     # Dark Green (Augmented intervals)
+   }
+   base_colour = interval_color_map[interval[-2]]  # Base colour from the map
+   rgb_colour = hex_to_rgb(base_colour)  # Convert to RGB
+
+   # Determine a brightness factor based on the interval distance from the tonic
+   distance_from_tonic = interval_semitones[interval] # Absolute distance in semitones
+   factor = (0.05 * distance_from_tonic)
+
+   adjusted_rgb = adjust_brightness(rgb_colour, factor)  # Adjust brightness
    return rgb_to_hex(adjusted_rgb)  # Convert back to HEX
 
 
@@ -70,6 +88,7 @@ def get_interval_color(interval: str) -> str:
 class ModeNotes:
    notes: list[str]
    colours: dict[str, str]
+   direction_colours: dict[str, str]
    syllables: list[str]
 
 class Direction(Enum):
@@ -88,6 +107,7 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
       scale_intervals = scales_intervals[scale_type][:len(scales_intervals[scale_type]) // 2 + 1]
 
    note_colours: Dict[str, str] = {}
+   direction_colours: Dict[str, str] = {}
    note_letters = []
 
    # Assign colours for notes in the scale
@@ -97,8 +117,11 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
       note_letters.append(note_name)
       octave_adjustment = (root_index + interval_semitones[interval]) // keys_per_octave
       full_note_name = f'{note_name}{base_octave + octave_adjustment}'
-      color = get_interval_color(interval)
-      note_colours[full_note_name] = color
+      colour = get_interval_color(interval)
+      note_colours[full_note_name] = colour
+      colour2 = get_interval_color2(interval)
+      direction_colours[full_note_name] = colour2
+
    interval_letters = interval_to_letters(scale_intervals)
    assert len(note_letters) == len(interval_letters)
    syllables: list[str] = [f"{note}{interval}" for note, interval in zip(note_letters, interval_letters)]
@@ -106,6 +129,7 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
    return ModeNotes(
       [note for note in note_colours.keys()],
       note_colours,
+      direction_colours,
       syllables
    )
 
@@ -123,7 +147,9 @@ def generate_mode_output(
    mode_notes = make_modes(note, mode, base_octave=base_octave, direction=direction)
    dir_suffix = "up" if direction == Direction.UP else "do"
    file_name = f"mode-{mode}-{note}-{dir_suffix}.png"
+   file_name2 = f"mode-{mode}-{note}-{dir_suffix}-no-colours.png"
    draw_keyboard(output_dir, file_name, mode_notes.notes, mode_notes.colours, 2)
+   draw_keyboard(output_dir, file_name2, mode_notes.notes, mode_notes.direction_colours, 2)
    dir_arrow = "->" if direction == Direction.UP else "<-"
    if direction == Direction.DOWN:
       mode_notes.syllables.reverse()
