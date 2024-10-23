@@ -102,17 +102,23 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
       note_colours
    )
 
+
+def generate_mode_output(
+      note: str, mode: str, direction: Direction, base_octave: int = 1, output_dir: str = "output/scales/"
+) -> str:
+   mode_notes = make_modes(note, mode, base_octave=base_octave, direction=direction)
+   dir_suffix = "up" if direction == Direction.UP else "do"
+   file_name = f"mode-{mode}-{note}-{dir_suffix}.png"
+   draw_keyboard(output_dir, file_name, mode_notes.notes, mode_notes.colours, 2)
+   dir_arrow = "->" if direction == Direction.UP else "<-"
+   return f"{mode} Mode: {note}{dir_arrow}{note}\t<img src=\"{file_name}\"/>"
+
 modes_from_file: Dict[str, Dict[str,str]] = read_file()
 with open('modes2.txt', mode='w') as csvfile:
    csvfile.write("\t".join(['ModeAndDirection', 'KeyboardPicture', 'SongToPractice', 'Syllables', 
                             'KeyboardPictureNoColours']))
    for mode in scales_intervals.keys():
       for note in note_names[0:12]:
-         mode_up = make_modes(note, mode, base_octave=1, direction=Direction.UP)
-         mode_do = make_modes(note, mode, base_octave=1, direction=Direction.DOWN)
-         file_name_up = f"mode-{mode}-{note}-up.png"
-         file_name_do = f"mode-{mode}-{note}-do.png"
-         draw_keyboard("output/scales/", file_name_up, mode_up.notes, mode_up.colours, 2)
-         draw_keyboard("output/scales/", file_name_do, mode_do.notes, mode_do.colours, 2,)
-         print(f"{mode} Mode: {note}->{note}\t<img src=\"{file_name_up}\"/>")
-         print(f"{mode} Mode: {note}<-{note}\t<img src=\"{file_name_do}\"/>")
+         print(", ".join([mode, note]))
+         csvfile.write(generate_mode_output(note, mode, Direction.UP, base_octave=1) + "\n")
+         csvfile.write(generate_mode_output(note, mode, Direction.DOWN, base_octave=1) + "\n")
