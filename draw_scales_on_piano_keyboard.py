@@ -135,6 +135,7 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
 class ModeOutput:
    mode_description: str
    image_tag: str
+   image_tag_no_colours: str
    syllable_groups: list[str]
 
 
@@ -154,6 +155,7 @@ def generate_mode_output(
    return ModeOutput(
       f"{mode} Mode: {note}{dir_arrow}{note}",
       f"<img src=\"{file_name}\"/>",
+      f"<img src=\"{file_name2}\"/>",
       syllable_groups
    )
 
@@ -170,7 +172,7 @@ with open('modes2.txt', mode='w') as csvfile:
             keyboard_picture = mode_output.image_tag
             song_to_practice = ""
             syllables = ' '.join(mode_output.syllable_groups)
-            keyboard_picture_no_colours_ionian = ""
+            keyboard_picture_no_colours_ionian = mode_output.image_tag_no_colours
             if mode_and_direction in modes_from_file:
                song_to_practice = modes_from_file[mode_and_direction]["SongToPractice"]
                song_to_practice = "" if song_to_practice is None else song_to_practice
