@@ -103,14 +103,15 @@ def calculate_start_index(note_indexes, total_keys):
 
 def interval_to_letters(interval_list: list[str]) -> list[str]:
    interval_names = ['P1', 'm2', 'M2', 'm3', 'M3', 'P4', 'Triton', 'P5', 'm6', 'M6', 'm7', 'M7', 'P8']
-   up_qualities = ['u', 'i', 'a', 'i', 'a', 'u', 'я', 'u', 'i', 'a', 'i', 'a', 'uu']
-   do_qualities = ['u', 'e', 'o', 'e', 'o', 'y', 'ё', 'y', 'e', 'o', 'e', 'o', 'yy']
+   up_qualities = ['u', 'i', 'a', 'i', 'a', 'u', 'ya', 'u', 'i', 'a', 'i', 'a', 'uu']
+   do_qualities = ['u', 'e', 'o', 'e', 'o', 'y', 'yo', 'y', 'e', 'o', 'e', 'o', 'y']
 
    result = []
    for interval in interval_list:
       is_downward = interval.startswith('-')
       clean_interval = interval.lstrip('-')  # Remove the '-' sign if present
-
+      if clean_interval == 'A4' or clean_interval == 'd5':
+         clean_interval = 'Triton'
       if clean_interval in interval_names:
          index = interval_names.index(clean_interval)
          if is_downward:

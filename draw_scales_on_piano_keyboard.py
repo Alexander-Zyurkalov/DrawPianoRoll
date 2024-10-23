@@ -125,6 +125,8 @@ def generate_mode_output(
    file_name = f"mode-{mode}-{note}-{dir_suffix}.png"
    draw_keyboard(output_dir, file_name, mode_notes.notes, mode_notes.colours, 2)
    dir_arrow = "->" if direction == Direction.UP else "<-"
+   if direction == Direction.DOWN:
+      mode_notes.syllables.reverse()
    syllable_groups = ["".join(mode_notes.syllables[:4]), "".join(mode_notes.syllables[4:8])]
    return ModeOutput(
       f"{mode} Mode: {note}{dir_arrow}{note}",
