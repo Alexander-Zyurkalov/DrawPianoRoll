@@ -67,13 +67,10 @@ def get_interval_color(interval: str) -> str:
 
 def get_interval_color2(interval: str) -> str:
    interval_color_map = {
-      'P': '#FFFF00',    # Yellow (Perfect intervals)
-      'm': '#F08080',    # Dark Blue (Minor intervals)
-      'M': '#F08080',    # Green (Major intervals)
-      'd': '#F08080',    # Grey (Diminished intervals)
-      'A': '#F08080'     # Dark Green (Augmented intervals)
+      'P1': '#FFFF00',
+      'P8': '#FFFF00',
    }
-   base_colour = interval_color_map[interval[-2]]  # Base colour from the map
+   base_colour = interval_color_map.get(interval[-2:], "#F08080")  # Base colour from the map
    rgb_colour = hex_to_rgb(base_colour)  # Convert to RGB
 
    # Determine a brightness factor based on the interval distance from the tonic
