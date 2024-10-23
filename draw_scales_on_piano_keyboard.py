@@ -6,7 +6,7 @@ import matplotlib.colors as mcolors
 
 from typing import Dict, List, Optional, Literal
 
-from draw_intervals import draw_keyboard, note_names, keys_per_octave
+from draw_intervals import draw_keyboard, note_names, keys_per_octave, interval_to_letters
 from modes import read_file
 
 # Define scale intervals for each mode, including intervals below the tonic
@@ -70,6 +70,7 @@ def get_interval_color(interval: str) -> str:
 class ModeNotes:
    notes: list[str]
    colours: dict[str, str]
+   syllables: list[str]
 
 class Direction(Enum):
    UP = 1
@@ -87,19 +88,25 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
       scale_intervals = scales_intervals[scale_type][:len(scales_intervals[scale_type]) // 2 + 1]
 
    note_colours: Dict[str, str] = {}
+   note_letters = []
 
    # Assign colours for notes in the scale
    for i, interval in enumerate(scale_intervals):
       note_index = (root_index + interval_semitones[interval]) % keys_per_octave
       note_name = note_names[note_index]
+      note_letters.append(note_name)
       octave_adjustment = (root_index + interval_semitones[interval]) // keys_per_octave
       full_note_name = f'{note_name}{base_octave + octave_adjustment}'
       color = get_interval_color(interval)
       note_colours[full_note_name] = color
+   interval_letters = interval_to_letters(scale_intervals)
+   assert len(note_letters) == len(interval_letters)
+   syllables: list[str] = [f"{note}{interval}" for note, interval in zip(note_letters, interval_letters)]
 
    return ModeNotes(
       [note for note in note_colours.keys()],
-      note_colours
+      note_colours,
+      syllables
    )
 
 
@@ -107,6 +114,7 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
 class ModeOutput:
    mode_description: str
    image_tag: str
+   syllable_groups: list[str]
 
 
 def generate_mode_output(
@@ -117,9 +125,11 @@ def generate_mode_output(
    file_name = f"mode-{mode}-{note}-{dir_suffix}.png"
    draw_keyboard(output_dir, file_name, mode_notes.notes, mode_notes.colours, 2)
    dir_arrow = "->" if direction == Direction.UP else "<-"
+   syllable_groups = ["".join(mode_notes.syllables[:4]), "".join(mode_notes.syllables[4:8])]
    return ModeOutput(
       f"{mode} Mode: {note}{dir_arrow}{note}",
-      f"<img src=\"{file_name}\"/>"
+      f"<img src=\"{file_name}\"/>",
+      syllable_groups
    )
 
 modes_from_file: Dict[str, Dict[str,str]] = read_file()
@@ -134,7 +144,7 @@ with open('modes2.txt', mode='w') as csvfile:
             mode_and_direction = mode_output.mode_description
             keyboard_picture = mode_output.image_tag
             song_to_practice = ""
-            syllables = ""
+            syllables = ' '.join(mode_output.syllable_groups)
             keyboard_picture_no_colours_ionian = ""
             if mode_and_direction in modes_from_file:
                song_to_practice = modes_from_file[mode_and_direction]["SongToPractice"]
