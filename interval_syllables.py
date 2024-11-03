@@ -1,6 +1,6 @@
 from draw_intervals import draw_piano_roll, draw_keyboard, bases
 
-
+# Original syllable definitions
 root_suffix = 'u'
 mi_up = 'i'
 ma_up = 'a'
@@ -10,6 +10,40 @@ ma_do = 'o'
 pe_do = 'y'
 tr_up = 'я'
 tr_do = 'ё'
+
+# Map western intervals to Sargam interval names
+sargam_intervals_up = {
+   'P1': 'Sa',
+   'm2': 're',
+   'M2': 'Re',
+   'm3': 'ga',
+   'M3': 'Ga',
+   'P4': 'Ma',
+   'Triton': "Ma'",
+   'P5': 'Pa',
+   'm6': 'dha',
+   'M6': 'Dha',
+   'm7': 'ni',
+   'M7': 'Ni',
+   'Octave': 'Sa.'
+}
+
+sargam_intervals_down = {
+   'P1': 'Sa',
+   'm2': '.ni',
+   'M2': '.Ni',
+   'm3': '.dha',
+   'M3': '.Dha',
+   'P4': '.Pa',
+   'Triton': ".Ma'",
+   'P5': '.Ma',
+   'm6': '.ga',
+   'M6': '.Ga',
+   'm7': '.re',
+   'M7': '.Re',
+   'Octave': '.Sa'
+}
+
 intervalNames = ['P1', 'm2', 'M2', 'm3', 'M3', 'P4', 'Triton', 'P5', 'm6', 'M6', 'm7', 'M7', 'Octave']
 up_qualities = [root_suffix, mi_up, ma_up, mi_up, ma_up, pe_up, tr_up, pe_up, mi_up, ma_up, mi_up, ma_up, pe_up + pe_up]
 do_qualities = [root_suffix, mi_do, ma_do, mi_do, ma_do, pe_do, tr_do, pe_do, mi_do, ma_do, mi_do, ma_do, pe_do + pe_do]
@@ -32,11 +66,18 @@ for i, root in enumerate(bases):
       img_url_keyboard = f"keyboard_{leftToRight}_{rightToLeft}.png"
       img_url_piano_roll = f"pianoroll_{leftToRight}_{rightToLeft}.png"
       notes = [root+'0', n_note + str((i+j)//12)]
+
+      # Get Sargam interval names for both directions
+      sargam_up = sargam_intervals_up[intervalNames[j]]
+      sargam_down = sargam_intervals_down[intervalNames[j]]
+
       print(f"{leftToRight}\t\t"
             f"{rightToLeft}\t\t"
             f"{intervalNames[j]}\t"
             f"<img src=\"{img_url_keyboard}\">\t"
-            f"<img src=\"{img_url_piano_roll}\">")
+            f"<img src=\"{img_url_piano_roll}\">\t"
+            f"{sargam_up}\t"
+            f"{sargam_down}\t")
       draw_keyboard('output/intervals/keyboard/', img_url_keyboard, notes)
       draw_piano_roll('output/intervals/pianoroll/', img_url_piano_roll, notes)
 print("count = ", count)
