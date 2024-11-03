@@ -130,8 +130,32 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
       syllables
    )
 
-def make_sargam(mode: str, note: str, direction: Direction) -> str:
-   return "Sa Re Ga Ma Pa Dha Ni Sa'"
+def make_sargam(mode: str, direction: Direction) -> str:
+   # Mapping of Mode+Direction to their Sargam sequences
+   sargam_sequences = {
+      ('Ionian', Direction.UP): "Sa Re Ga Ma Pa Dha Ni Sa.",
+      ('Ionian', Direction.DOWN): "Sa .Ni .Dha .Pa .Ma .Ga .Re .Sa",
+
+      ('Dorian', Direction.UP): "Sa Re ga Ma Pa Dha ni Sa.",
+      ('Dorian', Direction.DOWN): "Sa .ni .Dha .Pa .Ma .ga .Re .Sa",
+
+      ('Phrygian', Direction.UP): "Sa re ga Ma Pa dha ni Sa.",
+      ('Phrygian', Direction.DOWN): "Sa .ni .dha .Pa .Ma .ga .re .Sa",
+
+      ('Lydian', Direction.UP): "Sa Re Ga Ma' Pa Dha Ni Sa.",
+      ('Lydian', Direction.DOWN): "Sa .Ni .Dha .Pa .Ma' .Ga .Re .Sa",
+
+      ('Mixolydian', Direction.UP): "Sa Re Ga Ma Pa Dha ni Sa.",
+      ('Mixolydian', Direction.DOWN): "Sa .ni .Dha .Pa .Ma .Ga .Re .Sa",
+
+      ('Aeolian', Direction.UP): "Sa Re ga Ma Pa dha ni Sa.",
+      ('Aeolian', Direction.DOWN): "Sa .ni .dha .Pa .Ma .ga .Re .Sa",
+
+      ('Locrian', Direction.UP): "",
+      ('Locrian', Direction.DOWN): ""
+   }
+
+   return sargam_sequences[(mode, direction)]
 
 @dataclass
 class ModeOutput:
@@ -155,7 +179,7 @@ def generate_mode_output(
    if direction == Direction.DOWN:
       mode_notes.syllables.reverse()
    syllable_groups = ["".join(mode_notes.syllables[:4]), "".join(mode_notes.syllables[4:8])]
-   sargam = make_sargam(mode, note, direction)
+   sargam = make_sargam(mode, direction)
    return ModeOutput(
       f"{mode} Mode: {note}{dir_arrow}{note}",
       f"<img src=\"{file_name}\"/>",
@@ -165,7 +189,7 @@ def generate_mode_output(
    )
 
 modes_from_file: Dict[str, Dict[str,str]] = read_file()
-with open('modes2.txt', mode='w') as csvfile:
+with open('modes2.csv', mode='w') as csvfile:
    csvfile.write("\t".join(['ModeAndDirection', 'KeyboardPicture', 'SongToPractice', 'Syllables', 
                             'KeyboardPictureNoColours', 'Sargam']) + "\n")
    for mode in scales_intervals.keys():
