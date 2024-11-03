@@ -8,8 +8,8 @@ pe_up = 'u'
 mi_do = 'e'
 ma_do = 'o'
 pe_do = 'y'
-tr_up = 'я'
-tr_do = 'ё'
+tr_up = 'ya'
+tr_do = 'yo'
 
 # Map western intervals to Sargam interval names
 sargam_intervals_up = {
