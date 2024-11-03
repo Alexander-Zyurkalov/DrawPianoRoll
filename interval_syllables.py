@@ -49,35 +49,39 @@ up_qualities = [root_suffix, mi_up, ma_up, mi_up, ma_up, pe_up, tr_up, pe_up, mi
 do_qualities = [root_suffix, mi_do, ma_do, mi_do, ma_do, pe_do, tr_do, pe_do, mi_do, ma_do, mi_do, ma_do, pe_do + pe_do]
 assert len(bases) == len(up_qualities)
 
-count = 0
-for i, root in enumerate(bases):
-   if i == len(bases)-1:
-      break
-   for j in range(12):
-      interval_index = (i + j) % 12
-      up_quality = up_qualities[j]
-      do_quality = do_qualities[j]
-      n_note = bases[interval_index]
-      if root == n_note:
-         continue
-      count += 1
-      leftToRight = root + root_suffix + n_note + up_quality
-      rightToLeft = n_note + root_suffix + root + do_quality
-      img_url_keyboard = f"keyboard_{leftToRight}_{rightToLeft}.png"
-      img_url_piano_roll = f"pianoroll_{leftToRight}_{rightToLeft}.png"
-      notes = [root+'0', n_note + str((i+j)//12)]
+# Open CSV file for writing
+with open('intervals.csv', 'w', encoding='utf-8') as csvfile:
+   # Write header
+   csvfile.write("LeftToRight\tRightToLeft\tInterval\tKeyboard\tPianoRoll\tSargamUp\tSargamDown\n")
 
-      # Get Sargam interval names for both directions
-      sargam_up = sargam_intervals_up[intervalNames[j]]
-      sargam_down = sargam_intervals_down[intervalNames[j]]
+   count = 0
+   for i, root in enumerate(bases):
+      if i == len(bases)-1:
+         break
+      for j in range(12):
+         interval_index = (i + j) % 12
+         up_quality = up_qualities[j]
+         do_quality = do_qualities[j]
+         n_note = bases[interval_index]
+         if root == n_note:
+            continue
+         count += 1
+         leftToRight = root + root_suffix + n_note + up_quality
+         rightToLeft = n_note + root_suffix + root + do_quality
+         img_url_keyboard = f"keyboard_{leftToRight}_{rightToLeft}.png"
+         img_url_piano_roll = f"pianoroll_{leftToRight}_{rightToLeft}.png"
+         notes = [root+'0', n_note + str((i+j)//12)]
 
-      print(f"{leftToRight}\t\t"
-            f"{rightToLeft}\t\t"
-            f"{intervalNames[j]}\t"
-            f"<img src=\"{img_url_keyboard}\">\t"
-            f"<img src=\"{img_url_piano_roll}\">\t"
-            f"{sargam_up}\t"
-            f"{sargam_down}\t")
-      draw_keyboard('output/intervals/keyboard/', img_url_keyboard, notes)
-      draw_piano_roll('output/intervals/pianoroll/', img_url_piano_roll, notes)
+         # Get Sargam interval names for both directions
+         sargam_up = sargam_intervals_up[intervalNames[j]]
+         sargam_down = sargam_intervals_down[intervalNames[j]]
+
+         # Write data row
+         csvfile.write(f"{leftToRight}\t{rightToLeft}\t{intervalNames[j]}\t"
+                       f"<img src=\"{img_url_keyboard}\">\t<img src=\"{img_url_piano_roll}\">\t"
+                       f"{sargam_up}\t{sargam_down}\n")
+
+         draw_keyboard('output/intervals/keyboard/', img_url_keyboard, notes)
+         draw_piano_roll('output/intervals/pianoroll/', img_url_piano_roll, notes)
+
 print("count = ", count)
