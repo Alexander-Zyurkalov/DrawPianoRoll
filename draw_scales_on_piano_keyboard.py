@@ -130,6 +130,8 @@ def make_modes(root: str, scale_type: str, base_octave: int = 1, direction: Dire
       syllables
    )
 
+def make_sargam(mode: str, note: str, direction: Direction) -> str:
+   return "Sa Re Ga Ma Pa Dha Ni Sa'"
 
 @dataclass
 class ModeOutput:
@@ -137,6 +139,7 @@ class ModeOutput:
    image_tag: str
    image_tag_no_colours: str
    syllable_groups: list[str]
+   sargam:str
 
 
 def generate_mode_output(
@@ -152,17 +155,19 @@ def generate_mode_output(
    if direction == Direction.DOWN:
       mode_notes.syllables.reverse()
    syllable_groups = ["".join(mode_notes.syllables[:4]), "".join(mode_notes.syllables[4:8])]
+   sargam = make_sargam(mode, note, direction)
    return ModeOutput(
       f"{mode} Mode: {note}{dir_arrow}{note}",
       f"<img src=\"{file_name}\"/>",
       f"<img src=\"{file_name2}\"/>",
-      syllable_groups
+      syllable_groups,
+      sargam
    )
 
 modes_from_file: Dict[str, Dict[str,str]] = read_file()
 with open('modes2.txt', mode='w') as csvfile:
    csvfile.write("\t".join(['ModeAndDirection', 'KeyboardPicture', 'SongToPractice', 'Syllables', 
-                            'KeyboardPictureNoColours']) + "\n")
+                            'KeyboardPictureNoColours', 'Sargam']) + "\n")
    for mode in scales_intervals.keys():
       for note in note_names[0:12]:
          print(", ".join([mode, note]))
@@ -177,5 +182,6 @@ with open('modes2.txt', mode='w') as csvfile:
                song_to_practice = modes_from_file[mode_and_direction]["SongToPractice"]
                song_to_practice = "" if song_to_practice is None else song_to_practice
             output = "\t".join(
-               [mode_and_direction, keyboard_picture, song_to_practice, syllables, keyboard_picture_no_colours_ionian])
+               [mode_and_direction, keyboard_picture, song_to_practice, syllables, keyboard_picture_no_colours_ionian,
+                mode_output.sargam])
             csvfile.write(output + "\n")
