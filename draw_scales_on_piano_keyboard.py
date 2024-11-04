@@ -136,20 +136,20 @@ def make_sargam(mode: str, direction: Direction) -> str:
       ('Ionian', Direction.UP): "Sa Re Ga Ma Pa Dha Ni Sa.",
       ('Ionian', Direction.DOWN): "Sa .Ni .Dha .Pa .Ma .Ga .Re .Sa",
 
-      ('Dorian', Direction.UP): "Sa Re ga Ma Pa Dha ni Sa.",
-      ('Dorian', Direction.DOWN): "Sa .ni .Dha .Pa .Ma .ga .Re .Sa",
+      ('Dorian', Direction.UP): "Sa Re go Ma Pa Dha ny Sa.",
+      ('Dorian', Direction.DOWN): "Sa .ny .Dha .Pa .Ma .go .Re .Sa",
 
-      ('Phrygian', Direction.UP): "Sa re ga Ma Pa dha ni Sa.",
-      ('Phrygian', Direction.DOWN): "Sa .ni .dha .Pa .Ma .ga .re .Sa",
+      ('Phrygian', Direction.UP): "Sa ry go Ma Pa dho ny Sa.",
+      ('Phrygian', Direction.DOWN): "Sa .ny .dho .Pa .Ma .go .ry .Sa",
 
-      ('Lydian', Direction.UP): "Sa Re Ga Ma' Pa Dha Ni Sa.",
-      ('Lydian', Direction.DOWN): "Sa .Ni .Dha .Pa .Ma' .Ga .Re .Sa",
+      ('Lydian', Direction.UP): "Sa Re Ga Mo' Pa Dha Ni Sa.",
+      ('Lydian', Direction.DOWN): "Sa .Ni .Dha .Pa .Mo' .Ga .Re .Sa",
 
       ('Mixolydian', Direction.UP): "Sa Re Ga Ma Pa Dha ni Sa.",
-      ('Mixolydian', Direction.DOWN): "Sa .ni .Dha .Pa .Ma .Ga .Re .Sa",
+      ('Mixolydian', Direction.DOWN): "Sa .ny .Dha .Pa .Ma .Ga .Re .Sa",
 
-      ('Aeolian', Direction.UP): "Sa Re ga Ma Pa dha ni Sa.",
-      ('Aeolian', Direction.DOWN): "Sa .ni .dha .Pa .Ma .ga .Re .Sa",
+      ('Aeolian', Direction.UP): "Sa Re go Ma Pa dho ny Sa.",
+      ('Aeolian', Direction.DOWN): "Sa .ny .dhy .Pa .Ma .go .Re .Sa",
 
       ('Locrian', Direction.UP): "",
       ('Locrian', Direction.DOWN): ""

@@ -14,32 +14,32 @@ tr_do = 'yo'
 # Map western intervals to Sargam interval names
 sargam_intervals_up = {
    'P1': 'Sa',
-   'm2': 're',
+   'm2': 'ry',
    'M2': 'Re',
-   'm3': 'ga',
+   'm3': 'go',
    'M3': 'Ga',
    'P4': 'Ma',
-   'Triton': "Ma'",
+   'Triton': "Mo'",
    'P5': 'Pa',
-   'm6': 'dha',
+   'm6': 'dho',
    'M6': 'Dha',
-   'm7': 'ni',
+   'm7': 'ny',
    'M7': 'Ni',
    'Octave': 'Sa.'
 }
 
 sargam_intervals_down = {
    'P1': 'Sa',
-   'm2': '.ni',
+   'm2': '.ny',
    'M2': '.Ni',
-   'm3': '.dha',
+   'm3': '.dho',
    'M3': '.Dha',
    'P4': '.Pa',
-   'Triton': ".Ma'",
+   'Triton': ".Mo'",
    'P5': '.Ma',
-   'm6': '.ga',
+   'm6': '.go',
    'M6': '.Ga',
-   'm7': '.re',
+   'm7': '.ry',
    'M7': '.Re',
    'Octave': '.Sa'
 }
