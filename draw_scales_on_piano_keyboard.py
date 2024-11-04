@@ -134,22 +134,22 @@ def make_sargam(mode: str, direction: Direction) -> str:
    # Mapping of Mode+Direction to their Sargam sequences
    sargam_sequences = {
       ('Ionian', Direction.UP): "Sa Re Ga Ma Pa Dha Ni Sa.",
-      ('Ionian', Direction.DOWN): "Sa .Ni .Dha .Pa .Ma .Ga .Re .Sa",
+      ('Ionian', Direction.DOWN): "Sa kNi kDha kPa kMa nGa kRe kSa",
 
       ('Dorian', Direction.UP): "Sa Re go Ma Pa Dha ny Sa.",
-      ('Dorian', Direction.DOWN): "Sa .ny .Dha .Pa .Ma .go .Re .Sa",
+      ('Dorian', Direction.DOWN): "Sa kny kDha kPa kMa ngo kRe kSa",
 
       ('Phrygian', Direction.UP): "Sa ry go Ma Pa dho ny Sa.",
-      ('Phrygian', Direction.DOWN): "Sa .ny .dho .Pa .Ma .go .ry .Sa",
+      ('Phrygian', Direction.DOWN): "Sa kny kdho kPa kMa ngo kry kSa",
 
       ('Lydian', Direction.UP): "Sa Re Ga Mo' Pa Dha Ni Sa.",
-      ('Lydian', Direction.DOWN): "Sa .Ni .Dha .Pa .Mo' .Ga .Re .Sa",
+      ('Lydian', Direction.DOWN): "Sa kNi kDha kPa kMo' nGa kRe kSa",
 
-      ('Mixolydian', Direction.UP): "Sa Re Ga Ma Pa Dha ni Sa.",
-      ('Mixolydian', Direction.DOWN): "Sa .ny .Dha .Pa .Ma .Ga .Re .Sa",
+      ('Mixolydian', Direction.UP): "Sa Re Ga Ma Pa Dha ny Sa.",
+      ('Mixolydian', Direction.DOWN): "Sa kny kDha kPa kMa nGa kRe kSa",
 
       ('Aeolian', Direction.UP): "Sa Re go Ma Pa dho ny Sa.",
-      ('Aeolian', Direction.DOWN): "Sa .ny .dhy .Pa .Ma .go .Re .Sa",
+      ('Aeolian', Direction.DOWN): "Sa kny kdhy kPa kMa ngo kRe kSa",
 
       ('Locrian', Direction.UP): "",
       ('Locrian', Direction.DOWN): ""

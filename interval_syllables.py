@@ -30,18 +30,18 @@ sargam_intervals_up = {
 
 sargam_intervals_down = {
    'P1': 'Sa',
-   'm2': '.ny',
-   'M2': '.Ni',
-   'm3': '.dho',
-   'M3': '.Dha',
-   'P4': '.Pa',
-   'Triton': ".Mo'",
-   'P5': '.Ma',
-   'm6': '.go',
-   'M6': '.Ga',
-   'm7': '.ry',
-   'M7': '.Re',
-   'Octave': '.Sa'
+   'm2': 'kny',
+   'M2': 'kNi',
+   'm3': 'kdho',
+   'M3': 'kDha',
+   'P4': 'kPa',
+   'Triton': "kMo'",
+   'P5': 'kMa',
+   'm6': 'ngo',
+   'M6': 'nGa',
+   'm7': 'kry',
+   'M7': 'kRe',
+   'Octave': 'kSa'
 }
 
 intervalNames = ['P1', 'm2', 'M2', 'm3', 'M3', 'P4', 'Triton', 'P5', 'm6', 'M6', 'm7', 'M7', 'Octave']
