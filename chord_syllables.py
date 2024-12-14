@@ -74,10 +74,10 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
       if ChordType.MAJOR == chord_type:
          syllables = [root_suffix, ma_up, pe_up]
          colours = [root_colour, ma_up_colour, pe_up_colour]
-      if ChordType.DIMINISHED:
+      if ChordType.DIMINISHED == chord_type:
          syllables = [root_suffix, mi_up, di_up]
          colours = [root_colour, mi_up_colour, di_up_colour]
-      if ChordType.AUGMENTED:
+      if ChordType.AUGMENTED == chord_type:
          syllables = [root_suffix, ma_up, au_up]
          colours = [root_colour, ma_up_colour, au_up_colour]
 
@@ -90,10 +90,10 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
       if ChordType.MAJOR == chord_type:
          syllables = [ma_do, pe_do, root_suffix]
          colours = [ma_do_colour, pe_do_colour, root_colour]
-      if ChordType.DIMINISHED:
+      if ChordType.DIMINISHED == chord_type:
          syllables = [mi_do, di_do, root_suffix]
          colours = [mi_do_colour, di_do_colour, root_colour]
-      if ChordType.AUGMENTED:
+      if ChordType.AUGMENTED == chord_type:
          syllables = [ma_do, au_do, root_suffix]
          colours = [ma_do_colour, au_do_colour, root_colour]
 
@@ -107,10 +107,10 @@ def make_chord(root_: str, chord_type: ChordType, inversion_type: ChordInversion
       if ChordType.MAJOR == chord_type:
          syllables = [pe_do, root_suffix, ma_up]
          colours = [pe_do_colour, root_colour, ma_up_colour]
-      if ChordType.DIMINISHED:
+      if ChordType.DIMINISHED == chord_type:
          syllables = [di_do, root_suffix, mi_up]
          colours = [di_do_colour, root_colour, mi_up_colour]
-      if ChordType.AUGMENTED:
+      if ChordType.AUGMENTED == chord_type:
          syllables = [au_do, root_suffix, ma_up]
          colours = [au_do_colour, root_colour, ma_up_colour]
 
